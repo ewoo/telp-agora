@@ -359,15 +359,59 @@
     width: 100%;
     box-shadow: 0 0 44px rgba(167, 139, 250, 0.1);
   }
-  .agent-node .orb, .facil .orb {
-    width: 46px; height: 46px;
-    margin: 0 auto 12px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #c9b8ff, var(--violet) 55%, #4c3a8f);
-    box-shadow: 0 0 26px rgba(167, 139, 250, 0.55);
-    animation: orb 3.4s ease-in-out infinite;
+  /* 3D Assembly mark: six spheres orbiting the accent core */
+  .orb3d {
+    position: relative;
+    width: 84px;
+    height: 56px;
+    margin: 0 auto 14px;
   }
-  @keyframes orb { 0%,100% { transform: scale(1); box-shadow: 0 0 22px rgba(167,139,250,.45) } 50% { transform: scale(1.07); box-shadow: 0 0 40px rgba(167,139,250,.75) } }
+  .orb3d .core {
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 20px; height: 20px;
+    margin: -10px 0 0 -10px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #c9f1ff, var(--cyan) 48%, #17739c 95%);
+    box-shadow: 0 0 16px rgba(79, 216, 255, 0.65), 0 0 42px rgba(79, 216, 255, 0.22);
+    z-index: 5;
+    animation: corepulse 3.4s ease-in-out infinite;
+  }
+  @keyframes corepulse {
+    0%, 100% { box-shadow: 0 0 14px rgba(79,216,255,.5), 0 0 36px rgba(79,216,255,.18); }
+    50% { box-shadow: 0 0 22px rgba(79,216,255,.8), 0 0 52px rgba(79,216,255,.3); }
+  }
+  .orb3d i {
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 12px; height: 12px;
+    margin: -6px 0 0 -6px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #ffffff, #cdd8f3 40%, #8b97b8 72%, #46527a 100%);
+    animation: orbit3d 8s linear infinite;
+  }
+  /* static ring fallback (shown when animations are disabled) + stagger */
+  .orb3d i:nth-of-type(1) { transform: translate(30px, 0)        scale(.78); filter: brightness(.85); animation-delay: 0s; }
+  .orb3d i:nth-of-type(2) { transform: translate(15px, 12.1px)   scale(.97); filter: brightness(1.1); animation-delay: -1.333s; }
+  .orb3d i:nth-of-type(3) { transform: translate(-15px, 12.1px)  scale(.97); filter: brightness(1.1); animation-delay: -2.667s; }
+  .orb3d i:nth-of-type(4) { transform: translate(-30px, 0)       scale(.78); filter: brightness(.85); animation-delay: -4s; }
+  .orb3d i:nth-of-type(5) { transform: translate(-15px, -12.1px) scale(.59); filter: brightness(.6);  animation-delay: -5.333s; }
+  .orb3d i:nth-of-type(6) { transform: translate(15px, -12.1px)  scale(.59); filter: brightness(.6);  animation-delay: -6.667s; }
+  @keyframes orbit3d {
+    0%     { transform: translate(30px, 0)         scale(.78); filter: brightness(.85); z-index: 7; }
+    8.33%  { transform: translate(25.98px, 7px)    scale(.89); filter: brightness(1); }
+    16.67% { transform: translate(15px, 12.12px)   scale(.97); filter: brightness(1.11); }
+    25%    { transform: translate(0, 14px)         scale(1);   filter: brightness(1.15); }
+    33.33% { transform: translate(-15px, 12.12px)  scale(.97); filter: brightness(1.11); }
+    41.67% { transform: translate(-25.98px, 7px)   scale(.89); filter: brightness(1); z-index: 7; }
+    50%    { transform: translate(-30px, 0)        scale(.78); filter: brightness(.85); z-index: 2; }
+    58.33% { transform: translate(-25.98px, -7px)  scale(.67); filter: brightness(.7); }
+    66.67% { transform: translate(-15px, -12.12px) scale(.59); filter: brightness(.59); }
+    75%    { transform: translate(0, -14px)        scale(.56); filter: brightness(.55); }
+    83.33% { transform: translate(15px, -12.12px)  scale(.59); filter: brightness(.59); }
+    91.67% { transform: translate(25.98px, -7px)   scale(.67); filter: brightness(.7); z-index: 2; }
+    100%   { transform: translate(30px, 0)         scale(.78); filter: brightness(.85); z-index: 7; }
+  }
   .agent-node b { font-size: 15px; display: block; }
   .agent-node small { color: var(--ink-dim); font-size: 12px; line-height: 1.5; display: block; margin-top: 6px; }
   .profile-out {
@@ -705,7 +749,7 @@
     <div class="pipe-link"></div>
     <div class="pipe-col">
       <div class="agent-node">
-        <div class="orb"></div>
+        <div class="orb3d" aria-hidden="true"><span class="core"></span><i></i><i></i><i></i><i></i><i></i><i></i></div>
         <b>Onboarding Agent</b>
         <small>Reads, cross-references, and distills your sources into structured capabilities.</small>
       </div>
@@ -845,7 +889,7 @@
       </ul>
     </div>
     <div class="facil">
-      <div class="orb"></div>
+      <div class="orb3d" aria-hidden="true"><span class="core"></span><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <b>Facilitator agent</b>
       <small>Reads both profiles, drafts both briefings at the right level of detail, finds the incentive that makes helping worth it — and proposes the agenda.</small>
       <div class="flows"><span class="flow l"></span><span class="flow r"></span></div>
