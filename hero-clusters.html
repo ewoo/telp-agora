@@ -567,14 +567,49 @@
   }
   .facil b { display: block; font-size: 14.5px; margin-top: 10px; }
   .facil small { display: block; margin-top: 7px; font-size: 12px; color: var(--ink-dim); line-height: 1.55; }
-  .facil .arrows {
-    margin-top: 12px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--cyan);
-    letter-spacing: 0.3em;
-    opacity: .7;
+  .facil .flows { margin-top: 14px; display: flex; justify-content: center; gap: 16px; }
+  .flow {
+    position: relative;
+    width: 62px;
+    height: 2px;
+    align-self: center;
+    background: linear-gradient(90deg, transparent, rgba(79, 216, 255, 0.35), transparent);
   }
+  .flow::after {
+    content: "";
+    position: absolute;
+    top: -2.5px;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 9px var(--cyan);
+  }
+  .flow.r::after { animation: flowr 2.4s linear infinite; }
+  .flow.l::after { animation: flowl 2.4s linear infinite; }
+  @keyframes flowr { 0% { left: 0; opacity: 0 } 15% { opacity: 1 } 85% { opacity: 1 } 100% { left: calc(100% - 7px); opacity: 0 } }
+  @keyframes flowl { 0% { right: 0; opacity: 0 } 15% { opacity: 1 } 85% { opacity: 1 } 100% { right: calc(100% - 7px); opacity: 0 } }
+
+  /* engagement reveal choreography: orb first, briefings dispatched outward, lines drafted in */
+  #engage .facil { opacity: 0; transform: scale(.92); transition: opacity .6s ease, transform .6s ease; }
+  #engage.inview .facil { opacity: 1; transform: none; }
+  #engage .brief { opacity: 0; transform: translateX(30px); transition: opacity .7s ease .3s, transform .7s cubic-bezier(.22, .8, .24, 1) .3s; }
+  #engage .brief.owner { transform: translateX(-30px); transition-delay: .45s; }
+  #engage.inview .brief { opacity: 1; transform: none; }
+  #engage .brief li { opacity: 0; transform: translateY(7px); transition: opacity .45s ease, transform .45s ease; }
+  #engage.inview .brief li { opacity: 1; transform: none; }
+  #engage.inview .brief li:nth-child(1) { transition-delay: .6s }
+  #engage.inview .brief li:nth-child(2) { transition-delay: .78s }
+  #engage.inview .brief li:nth-child(3) { transition-delay: .96s }
+  #engage.inview .brief li:nth-child(4) { transition-delay: 1.14s }
+  #engage.inview .brief.owner li:nth-child(1) { transition-delay: .84s }
+  #engage.inview .brief.owner li:nth-child(2) { transition-delay: 1.02s }
+  #engage.inview .brief.owner li:nth-child(3) { transition-delay: 1.2s }
+  #engage.inview .brief.owner li:nth-child(4) { transition-delay: 1.38s }
+  #engage .epoint { opacity: 0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
+  #engage.inview .epoint { opacity: 1; transform: none; }
+  #engage.inview .epoint:nth-child(1) { transition-delay: 1.3s }
+  #engage.inview .epoint:nth-child(2) { transition-delay: 1.45s }
+  #engage.inview .epoint:nth-child(3) { transition-delay: 1.6s }
   .engage-points {
     margin-top: 26px;
     display: grid;
@@ -789,7 +824,7 @@
 </section>
 
 <!-- ═══════════════════ ENGAGEMENT ═══════════════════ -->
-<section>
+<section id="engage">
   <div class="sec-eyebrow">03 · ENGAGEMENT</div>
   <h2>Introductions arrive pre-briefed</h2>
   <p class="sec-sub">
@@ -813,7 +848,7 @@
       <div class="orb"></div>
       <b>Facilitator agent</b>
       <small>Reads both profiles, drafts both briefings at the right level of detail, finds the incentive that makes helping worth it — and proposes the agenda.</small>
-      <div class="arrows">◂ ▸</div>
+      <div class="flows"><span class="flow l"></span><span class="flow r"></span></div>
     </div>
     <div class="brief owner">
       <div class="bh">BRIEFING · FOR THE OWNING TEAM</div>
@@ -958,6 +993,19 @@
       });
     }, { threshold: 0.2 });
     io.observe(disc);
+  }
+
+  /* ---------- engagement reveal ---------- */
+  var eng = document.getElementById("engage");
+  if (REDUCED || !("IntersectionObserver" in window)) {
+    eng.classList.add("inview");
+  } else {
+    var io2 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { eng.classList.add("inview"); io2.disconnect(); }
+      });
+    }, { threshold: 0.18 });
+    io2.observe(eng);
   }
 
   /* ---------- clustered mesh ---------- */
