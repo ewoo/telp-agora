@@ -100,6 +100,73 @@
   }
   .chipbox.grad svg [data-acc] { fill: #061019; }
 
+  /* selected weight study */
+  .selected {
+    margin-top: 48px;
+    border: 1px solid rgba(79, 216, 255, 0.3);
+    background:
+      radial-gradient(500px 200px at 20% 0%, rgba(79, 216, 255, 0.06), transparent 70%),
+      var(--card);
+    border-radius: 18px;
+    padding: 28px 26px 26px;
+  }
+  .sel-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: #061019;
+    background: linear-gradient(120deg, var(--cyan), #7cc4ff);
+    border-radius: 999px;
+    padding: 5px 13px;
+    font-weight: 700;
+  }
+  .selected h2 { margin-top: 14px; font-size: 22px; letter-spacing: -0.015em; }
+  .selected .note { margin-top: 8px; font-size: 13.5px; color: var(--ink-dim); line-height: 1.6; max-width: 640px; }
+  .weights {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 14px;
+  }
+  .wcard {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(4, 6, 15, 0.55);
+    padding: 20px 18px 18px;
+    text-align: center;
+    position: relative;
+  }
+  .wcard.reco { border-color: rgba(79, 216, 255, 0.45); }
+  .wcard .rtag {
+    position: absolute;
+    top: -9px; left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: .16em;
+    color: var(--cyan);
+    background: var(--bg-0);
+    border: 1px solid rgba(79, 216, 255, 0.4);
+    border-radius: 4px;
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+  .wcard .wname { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; color: var(--ink-dim); }
+  .wcard .wstage { height: 96px; display: grid; place-items: center; color: var(--ink); }
+  .wcard .wlock {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--line);
+    width: 100%;
+    justify-content: center;
+    color: var(--ink);
+  }
+  .wcard .wlock .word { font-weight: 650; font-size: 17px; letter-spacing: 0.34em; text-indent: 0.34em; }
+  .wcard .wsmall { margin-top: 12px; display: flex; justify-content: center; gap: 8px; }
+
   footer {
     margin-top: 64px;
     border-top: 1px solid var(--line);
@@ -134,6 +201,24 @@
       <circle cx="11.9" cy="17" r="2.7" fill="currentColor" />
       <circle cx="24" cy="24" r="3.4" fill="var(--cyan,#4fd8ff)" data-acc="1" />
     </g>
+    <g id="m-assembly-md">
+      <circle cx="24" cy="10" r="3.5" fill="currentColor" />
+      <circle cx="36.1" cy="17" r="3.5" fill="currentColor" />
+      <circle cx="36.1" cy="31" r="3.5" fill="currentColor" />
+      <circle cx="24" cy="38" r="3.5" fill="currentColor" />
+      <circle cx="11.9" cy="31" r="3.5" fill="currentColor" />
+      <circle cx="11.9" cy="17" r="3.5" fill="currentColor" />
+      <circle cx="24" cy="24" r="4.3" fill="var(--cyan,#4fd8ff)" data-acc="1" />
+    </g>
+    <g id="m-assembly-b">
+      <circle cx="24" cy="10.5" r="4.2" fill="currentColor" />
+      <circle cx="35.7" cy="17.25" r="4.2" fill="currentColor" />
+      <circle cx="35.7" cy="30.75" r="4.2" fill="currentColor" />
+      <circle cx="24" cy="37.5" r="4.2" fill="currentColor" />
+      <circle cx="12.3" cy="30.75" r="4.2" fill="currentColor" />
+      <circle cx="12.3" cy="17.25" r="4.2" fill="currentColor" />
+      <circle cx="24" cy="24" r="5.1" fill="var(--cyan,#4fd8ff)" data-acc="1" />
+    </g>
     <g id="m-ring" fill="none">
       <circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="74 13.96" />
       <circle cx="36.5" cy="17.8" r="2.9" fill="var(--cyan,#4fd8ff)" data-acc="1" />
@@ -161,6 +246,58 @@
     The accent dot is the constant across all of them — the "team you were looking for."
   </p>
 
+  <div class="selected">
+    <span class="sel-badge">SELECTED · 02 THE ASSEMBLY</span>
+    <h2>Weight studies</h2>
+    <p class="note">
+      The original dots read light next to the wordmark's 650 weight. Two heavier cuts below —
+      each lockup uses the same 24px mark against the same type, so the proportion is comparable.
+      The bold cut also pulls the circle in slightly so the mass stays gathered.
+    </p>
+    <div class="weights">
+      <div class="wcard">
+        <div class="wname">LIGHT · ORIGINAL</div>
+        <div class="wstage"><svg width="84" height="84" viewBox="0 0 48 48"><use href="#m-assembly" /></svg></div>
+        <div class="wlock">
+          <svg width="24" height="24" viewBox="0 0 48 48"><use href="#m-assembly" /></svg>
+          <span class="word">AGORA</span>
+        </div>
+        <div class="wsmall">
+          <span class="chipbox dark"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-assembly" /></svg></span>
+          <span class="chipbox light"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-assembly" /></svg></span>
+          <span class="chipbox grad"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-assembly" /></svg></span>
+        </div>
+      </div>
+      <div class="wcard reco">
+        <span class="rtag">RECOMMENDED</span>
+        <div class="wname">MEDIUM</div>
+        <div class="wstage"><svg width="84" height="84" viewBox="0 0 48 48"><use href="#m-assembly-md" /></svg></div>
+        <div class="wlock">
+          <svg width="24" height="24" viewBox="0 0 48 48"><use href="#m-assembly-md" /></svg>
+          <span class="word">AGORA</span>
+        </div>
+        <div class="wsmall">
+          <span class="chipbox dark"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-assembly-md" /></svg></span>
+          <span class="chipbox light"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-assembly-md" /></svg></span>
+          <span class="chipbox grad"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-assembly-md" /></svg></span>
+        </div>
+      </div>
+      <div class="wcard">
+        <div class="wname">BOLD</div>
+        <div class="wstage"><svg width="84" height="84" viewBox="0 0 48 48"><use href="#m-assembly-b" /></svg></div>
+        <div class="wlock">
+          <svg width="24" height="24" viewBox="0 0 48 48"><use href="#m-assembly-b" /></svg>
+          <span class="word">AGORA</span>
+        </div>
+        <div class="wsmall">
+          <span class="chipbox dark"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-assembly-b" /></svg></span>
+          <span class="chipbox light"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-assembly-b" /></svg></span>
+          <span class="chipbox grad"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-assembly-b" /></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="grid">
 
     <div class="lcard">
@@ -181,7 +318,7 @@
 
     <div class="lcard">
       <div class="stage"><svg width="96" height="96" viewBox="0 0 48 48"><use href="#m-assembly" /></svg></div>
-      <h3><span class="num">02</span>The Assembly</h3>
+      <h3><span class="num">02</span>The Assembly <span class="num" style="margin-left:auto">★ SELECTED</span></h3>
       <p>Dots gathered in a circle — the agora as a meeting of equals, no lines needed. Quietest and most timeless of the set; reads as a gem/compass at 16px. Center node = knowledge found.</p>
       <div class="lockup">
         <svg width="24" height="24" viewBox="0 0 48 48"><use href="#m-assembly" /></svg>
