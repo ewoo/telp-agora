@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agora — Logo Explorations</title>
+<style>
+  :root {
+    --bg-0: #04060f;
+    --ink: #e8eefc;
+    --ink-dim: #8b97b8;
+    --cyan: #4fd8ff;
+    --violet: #a78bfa;
+    --line: rgba(139, 151, 184, 0.14);
+    --card: rgba(13, 19, 38, 0.72);
+    --mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg-0);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding: 72px 24px 40px;
+  }
+  ::selection { background: rgba(79, 216, 255, 0.28); }
+  .wrap { max-width: 1160px; margin: 0 auto; }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    color: var(--cyan);
+  }
+  h1 { margin-top: 14px; font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.025em; }
+  .sub { margin-top: 14px; max-width: 640px; color: var(--ink-dim); font-size: 15.5px; line-height: 1.65; }
+
+  .grid {
+    margin-top: 52px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: 18px;
+  }
+  .lcard {
+    border: 1px solid var(--line);
+    background: var(--card);
+    border-radius: 16px;
+    padding: 26px 24px 22px;
+    display: flex;
+    flex-direction: column;
+    transition: transform .25s, border-color .25s;
+  }
+  .lcard:hover { transform: translateY(-4px); border-color: rgba(79, 216, 255, 0.4); }
+  .stage {
+    height: 132px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background:
+      radial-gradient(240px 120px at 50% 60%, rgba(79, 216, 255, 0.05), transparent 70%),
+      rgba(4, 6, 15, 0.55);
+    border: 1px solid rgba(139, 151, 184, 0.09);
+    color: var(--ink);
+  }
+  .stage svg { display: block; }
+  .lcard h3 { margin-top: 18px; font-size: 17px; letter-spacing: -0.01em; display: flex; align-items: baseline; gap: 10px; }
+  .lcard h3 .num { font-family: var(--mono); font-size: 10.5px; color: var(--cyan); letter-spacing: .16em; }
+  .lcard p { margin-top: 8px; font-size: 13px; color: var(--ink-dim); line-height: 1.6; flex: 1; }
+
+  .lockup {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--line);
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: var(--ink);
+  }
+  .lockup .word {
+    font-weight: 650;
+    font-size: 17px;
+    letter-spacing: 0.34em;
+    text-indent: 0.34em; /* balance trailing tracking */
+  }
+  .word-inline { display: inline-flex; align-items: center; font-weight: 650; letter-spacing: 0.3em; }
+  .word-inline svg { margin: 0 0.08em; }
+
+  .sizes { margin-top: 14px; display: flex; align-items: center; gap: 10px; }
+  .sizes .label { font-family: var(--mono); font-size: 9.5px; letter-spacing: .18em; color: var(--ink-dim); margin-right: 4px; }
+  .chipbox {
+    width: 34px; height: 34px;
+    border-radius: 9px;
+    display: grid; place-items: center;
+  }
+  .chipbox.dark { background: #0a1022; border: 1px solid var(--line); color: var(--ink); }
+  .chipbox.light { background: #eef1f8; color: #10162b; }
+  .chipbox.light svg [data-acc] { fill: #0b8fc4; }
+  .chipbox.grad {
+    background: linear-gradient(135deg, var(--cyan), var(--violet));
+    color: #061019;
+  }
+  .chipbox.grad svg [data-acc] { fill: #061019; }
+
+  footer {
+    margin-top: 64px;
+    border-top: 1px solid var(--line);
+    padding-top: 28px;
+    text-align: center;
+    color: var(--ink-dim);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+  }
+  footer a { color: var(--cyan); text-decoration: none; }
+</style>
+</head>
+<body>
+<!-- shared mark definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="m-constellation" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+      <path d="M24 9L11 39M24 9l13 30M15.3 29h17.4" />
+      <circle cx="24" cy="9" r="3" fill="var(--cyan,#4fd8ff)" stroke="none" data-acc="1" />
+      <circle cx="11" cy="39" r="2.4" fill="currentColor" stroke="none" />
+      <circle cx="37" cy="39" r="2.4" fill="currentColor" stroke="none" />
+      <circle cx="15.3" cy="29" r="1.8" fill="currentColor" stroke="none" />
+      <circle cx="32.7" cy="29" r="1.8" fill="currentColor" stroke="none" />
+    </g>
+    <g id="m-assembly">
+      <circle cx="24" cy="10" r="2.7" fill="currentColor" />
+      <circle cx="36.1" cy="17" r="2.7" fill="currentColor" />
+      <circle cx="36.1" cy="31" r="2.7" fill="currentColor" />
+      <circle cx="24" cy="38" r="2.7" fill="currentColor" />
+      <circle cx="11.9" cy="31" r="2.7" fill="currentColor" />
+      <circle cx="11.9" cy="17" r="2.7" fill="currentColor" />
+      <circle cx="24" cy="24" r="3.4" fill="var(--cyan,#4fd8ff)" data-acc="1" />
+    </g>
+    <g id="m-ring" fill="none">
+      <circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="74 13.96" />
+      <circle cx="36.5" cy="17.8" r="2.9" fill="var(--cyan,#4fd8ff)" data-acc="1" />
+    </g>
+    <g id="m-alpha" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+      <path d="M35 14c-4.2 4.2-6.8 7.4-9 11.5-3.2-8.6-17-7.4-17 1.7 0 9.4 14 10.6 17-1.7 1.4 4.6 3.2 8 6.8 11.5" />
+      <circle cx="33.6" cy="37.6" r="2.7" fill="var(--cyan,#4fd8ff)" stroke="none" data-acc="1" />
+    </g>
+    <g id="m-stoa" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round">
+      <path d="M10 16h28M15 21v12M24 21v12M33 21v12M10 38h28" />
+      <circle cx="24" cy="8.5" r="2.6" fill="var(--cyan,#4fd8ff)" stroke="none" data-acc="1" />
+    </g>
+    <g id="m-onode" fill="none">
+      <circle cx="24" cy="24" r="13" stroke="currentColor" stroke-width="2.6" />
+      <circle cx="24" cy="24" r="3.6" fill="var(--cyan,#4fd8ff)" data-acc="1" />
+    </g>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <div class="eyebrow">AGORA · BRAND</div>
+  <h1>Logo explorations</h1>
+  <p class="sub">
+    Six minimal directions. Each keeps to one weight, one accent node, and survives at favicon size.
+    The accent dot is the constant across all of them — the "team you were looking for."
+  </p>
+
+  <div class="grid">
+
+    <div class="lcard">
+      <div class="stage"><svg width="96" height="96" viewBox="0 0 48 48"><use href="#m-constellation" /></svg></div>
+      <h3><span class="num">01</span>Constellation A</h3>
+      <p>The letter A drawn as a graph — three nodes, three edges. The most literal tie to the product: teams as stars, connections as constellations. Apex node in accent = the match.</p>
+      <div class="lockup">
+        <svg width="24" height="24" viewBox="0 0 48 48"><use href="#m-constellation" /></svg>
+        <span class="word">AGORA</span>
+      </div>
+      <div class="sizes">
+        <span class="label">SCALES</span>
+        <span class="chipbox dark"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-constellation" /></svg></span>
+        <span class="chipbox light"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-constellation" /></svg></span>
+        <span class="chipbox grad"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-constellation" /></svg></span>
+      </div>
+    </div>
+
+    <div class="lcard">
+      <div class="stage"><svg width="96" height="96" viewBox="0 0 48 48"><use href="#m-assembly" /></svg></div>
+      <h3><span class="num">02</span>The Assembly</h3>
+      <p>Dots gathered in a circle — the agora as a meeting of equals, no lines needed. Quietest and most timeless of the set; reads as a gem/compass at 16px. Center node = knowledge found.</p>
+      <div class="lockup">
+        <svg width="24" height="24" viewBox="0 0 48 48"><use href="#m-assembly" /></svg>
+        <span class="word">AGORA</span>
+      </div>
+      <div class="sizes">
+        <span class="label">SCALES</span>
+        <span class="chipbox dark"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-assembly" /></svg></span>
+        <span class="chipbox light"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-assembly" /></svg></span>
+        <span class="chipbox grad"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-assembly" /></svg></span>
+      </div>
+    </div>
+
+    <div class="lcard">
+      <div class="stage"><svg width="96" height="96" viewBox="0 0 48 48"><use href="#m-ring" /></svg></div>
+      <h3><span class="num">03</span>Forum Ring</h3>
+      <p>An open circle with a node arriving through the gap — the square always has room for one more team. Modern, ownable, and the gap gives it motion without animating anything.</p>
+      <div class="lockup">
+        <svg width="24" height="24" viewBox="0 0 48 48"><use href="#m-ring" /></svg>
+        <span class="word">AGORA</span>
+      </div>
+      <div class="sizes">
+        <span class="label">SCALES</span>
+        <span class="chipbox dark"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-ring" /></svg></span>
+        <span class="chipbox light"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-ring" /></svg></span>
+        <span class="chipbox grad"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-ring" /></svg></span>
+      </div>
+    </div>
+
+    <div class="lcard">
+      <div class="stage"><svg width="96" height="96" viewBox="0 0 48 48"><use href="#m-alpha" /></svg></div>
+      <h3><span class="num">04</span>Alpha</h3>
+      <p>A single continuous stroke: the Greek α ending in a node. One line in, one answer out — and the loop is a network cycle if you squint. The most calligraphic and Greek of the set.</p>
+      <div class="lockup">
+        <svg width="24" height="24" viewBox="0 0 48 48"><use href="#m-alpha" /></svg>
+        <span class="word">AGORA</span>
+      </div>
+      <div class="sizes">
+        <span class="label">SCALES</span>
+        <span class="chipbox dark"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-alpha" /></svg></span>
+        <span class="chipbox light"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-alpha" /></svg></span>
+        <span class="chipbox grad"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-alpha" /></svg></span>
+      </div>
+    </div>
+
+    <div class="lcard">
+      <div class="stage"><svg width="96" height="96" viewBox="0 0 48 48"><use href="#m-stoa" /></svg></div>
+      <h3><span class="num">05</span>Stoa</h3>
+      <p>The colonnade of the agora reduced to five strokes, with a node rising above the roof. Most architectural and "enterprise-stable"; doubles as a table/grid glyph in product UI.</p>
+      <div class="lockup">
+        <svg width="24" height="24" viewBox="0 0 48 48"><use href="#m-stoa" /></svg>
+        <span class="word">AGORA</span>
+      </div>
+      <div class="sizes">
+        <span class="label">SCALES</span>
+        <span class="chipbox dark"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-stoa" /></svg></span>
+        <span class="chipbox light"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-stoa" /></svg></span>
+        <span class="chipbox grad"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-stoa" /></svg></span>
+      </div>
+    </div>
+
+    <div class="lcard">
+      <div class="stage">
+        <span class="word-inline" style="font-size:30px">AG<svg width="36" height="36" viewBox="0 0 48 48"><use href="#m-onode" /></svg>RA</span>
+      </div>
+      <h3><span class="num">06</span>Wordmark · O-node</h3>
+      <p>No separate mark at all — the O in AGORA is a node in the graph. Cheapest to deploy everywhere; the O alone (ring + dot) becomes the favicon and app icon.</p>
+      <div class="lockup">
+        <svg width="24" height="24" viewBox="0 0 48 48"><use href="#m-onode" /></svg>
+        <span class="word">AGORA</span>
+      </div>
+      <div class="sizes">
+        <span class="label">SCALES</span>
+        <span class="chipbox dark"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-onode" /></svg></span>
+        <span class="chipbox light"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-onode" /></svg></span>
+        <span class="chipbox grad"><svg width="18" height="18" viewBox="0 0 48 48"><use href="#m-onode" /></svg></span>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>AGORA · LOGO EXPLORATIONS · <a href="index.html">ALL CONCEPTS</a></footer>
+</div>
+</body>
+</html>

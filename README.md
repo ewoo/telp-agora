@@ -6,10 +6,12 @@ This repo holds three hero-page design directions for the landing page, each a s
 
 **Live:** once GitHub Pages is enabled for this repo (Settings → Pages → Deploy from branch `main` / root), the gallery will be at `https://ewoo.github.io/telp-agora/`.
 
-- [`index.html`](index.html) — gallery linking all three concepts
+- [`index.html`](index.html) — gallery linking all concepts
 - [`hero-constellation.html`](hero-constellation.html) — Concept A: full-bleed neural mesh, cyan/violet
+- [`hero-clusters.html`](hero-clusters.html) — Concept A2: A's copy and palette with small domain constellations across a full-bleed graph
 - [`hero-console.html`](hero-console.html) — Concept B: split console with domain-clustered graph, amber/teal
 - [`hero-radial.html`](hero-radial.html) — Concept C: orbital rings around a central search hub, gold/lime
+- [`logo-explorations.html`](logo-explorations.html) — six minimal logo directions with lockups and size tests
 
 Open any file directly in a browser, or serve the folder locally:
 

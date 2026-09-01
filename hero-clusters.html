@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Agora — Constellation</title>
+<title>Agora — Constellation Clusters</title>
 <style>
   :root {
     --bg-0: #04060f;
@@ -584,7 +584,7 @@
   </div>
 </section>
 
-<footer>AGORA · CONCEPT A — "CONSTELLATION" · <a href="index.html">ALL VARIATIONS</a></footer>
+<footer>AGORA · CONCEPT A2 — "CONSTELLATION CLUSTERS" · <a href="index.html">ALL VARIATIONS</a></footer>
 
 <script>
 (function () {
@@ -679,12 +679,26 @@
     c.addEventListener("click", function () { input.value = c.textContent; input.focus(); });
   });
 
-  /* ---------- mesh ---------- */
+  /* ---------- clustered mesh ---------- */
   var canvas = document.getElementById("mesh");
   var ctx = canvas.getContext("2d");
   var hero = document.getElementById("hero");
+  var heroInner = document.querySelector(".hero-inner");
   var W = 0, H = 0, DPR = Math.min(window.devicePixelRatio || 1, 2);
-  var nodes = [], pulses = [], lastFire = 0, lastGhost = 0;
+  var clusters = [], nodes = [], pulses = [], lastFire = 0, lastGhost = 0;
+
+  var DOMAINS = [
+    { name: "PAYMENTS",  color: "79,216,255" },
+    { name: "DATA",      color: "167,139,250" },
+    { name: "INFRA",     color: "124,196,255" },
+    { name: "ML",        color: "126,226,168" },
+    { name: "IDENTITY",  color: "167,139,250" },
+    { name: "MOBILE",    color: "79,216,255" },
+    { name: "SEARCH",    color: "124,196,255" },
+    { name: "OBSERVABILITY", color: "126,226,168" }
+  ];
+
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
 
   function resize() {
     W = hero.clientWidth; H = hero.clientHeight;
@@ -694,48 +708,65 @@
   }
 
   function seed() {
-    nodes = [];
-    pulses = [];
-    var count = W < 700 ? 34 : 56;
-    var teamCount = Math.round(count * 0.45);
-    for (var i = 0; i < count; i++) {
-      var isTeam = i < teamCount;
-      nodes.push({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.16,
-        vy: (Math.random() - 0.5) * 0.16,
-        r: isTeam ? 2.6 + Math.random() * 1.8 : 1.2 + Math.random() * 1.1,
-        team: isTeam,
-        label: isTeam ? TEAMS[i % TEAMS.length] : TECH[i % TECH.length],
-        glow: 0,
-        hue: Math.random() < 0.5 ? 0 : 1 // 0 = cyan, 1 = violet
+    clusters = []; nodes = []; pulses = [];
+    var count = W < 700 ? 4 : (W < 1100 ? 6 : 8);
+    for (var c = 0; c < count; c++) {
+      // anchors on an ellipse around the central copy, jittered
+      var ang = (c / count) * 6.2832 - 1.25 + (Math.random() - 0.5) * 0.4;
+      var d = DOMAINS[c % DOMAINS.length];
+      clusters.push({
+        name: d.name,
+        color: d.color,
+        ax: clamp(W / 2 + Math.cos(ang) * W * (0.31 + Math.random() * 0.1), 90, W - 90),
+        ay: clamp(H / 2 + Math.sin(ang) * H * (0.30 + Math.random() * 0.09), 80, H - 70),
+        phase: Math.random() * 6.2832,
+        r: 34 + Math.random() * 28
       });
     }
-  }
-
-  var LINK_D = 150;
-
-  function fire(now) {
-    // pick a random pair of currently-near nodes, at least one being a team
-    for (var attempt = 0; attempt < 24; attempt++) {
-      var a = nodes[(Math.random() * nodes.length) | 0];
-      var b = nodes[(Math.random() * nodes.length) | 0];
-      if (a === b || (!a.team && !b.team)) continue;
-      var dx = a.x - b.x, dy = a.y - b.y;
-      var d = Math.sqrt(dx * dx + dy * dy);
-      if (d > 60 && d < LINK_D * 1.6) {
-        pulses.push({ a: a, b: b, t: 0, dur: 900 + Math.random() * 500 });
-        a.glow = Math.max(a.glow, 0.4);
-        if (now - lastGhost > 2600) { lastGhost = now; spawnGhost(a, b); }
-        return;
+    var per = W < 700 ? 5 : 7;
+    for (c = 0; c < clusters.length; c++) {
+      for (var i = 0; i < per; i++) {
+        var a2 = Math.random() * 6.2832;
+        var rr = (i === 0 ? 0 : 12 + Math.random() * clusters[c].r);
+        nodes.push({
+          cluster: c,
+          ox: Math.cos(a2) * rr,
+          oy: Math.sin(a2) * rr * 0.85,
+          phase: Math.random() * 6.2832,
+          speed: 0.00012 + Math.random() * 0.00018,
+          r: i === 0 ? 3.2 : 1.4 + Math.random() * 1.5,
+          hub: i === 0,
+          label: TEAMS[(c * per + i) % TEAMS.length],
+          glow: 0, x: 0, y: 0
+        });
       }
     }
   }
 
-  var heroInner = document.querySelector(".hero-inner");
+  function place(n, t) {
+    var cl = clusters[n.cluster];
+    // whole constellation drifts gently; members orbit inside it
+    var ax = cl.ax + Math.sin(t * 0.00005 + cl.phase) * 10;
+    var ay = cl.ay + Math.cos(t * 0.00004 + cl.phase) * 8;
+    var cos = Math.cos(t * n.speed + n.phase), sin = Math.sin(t * n.speed + n.phase);
+    n.x = ax + n.ox * cos - n.oy * sin;
+    n.y = ay + n.ox * sin + n.oy * cos;
+  }
+
+  function fire(now) {
+    for (var attempt = 0; attempt < 24; attempt++) {
+      var a = nodes[(Math.random() * nodes.length) | 0];
+      var b = nodes[(Math.random() * nodes.length) | 0];
+      if (a === b || a.cluster === b.cluster) continue;
+      pulses.push({ a: a, b: b, t: 0, dur: 1100 + Math.random() * 600 });
+      a.glow = Math.max(a.glow, 0.5);
+      if (now - lastGhost > 2600) { lastGhost = now; spawnGhost(a, b); }
+      return;
+    }
+  }
+
   function spawnGhost(a, b) {
-    var team = a.team ? a : b;
+    var team = a.hub ? a : b;
     var mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
     var g = document.createElement("div");
     g.className = "ghost";
@@ -770,86 +801,117 @@
     setTimeout(function () { g.remove(); }, 4400);
   }
 
-  function step(now) {
+  function qcurve(ax, ay, bx, by, t) {
+    var mx = (ax + bx) / 2, my = (ay + by) / 2;
+    var dx = bx - ax, dy = by - ay;
+    var len = Math.sqrt(dx * dx + dy * dy) || 1;
+    var cx = mx - dy / len * len * 0.18, cy = my + dx / len * len * 0.18;
+    var u = 1 - t;
+    return [u * u * ax + 2 * u * t * cx + t * t * bx, u * u * ay + 2 * u * t * cy + t * t * by];
+  }
+
+  function drawBase() {
     ctx.clearRect(0, 0, W, H);
 
-    // drift
-    for (var i = 0; i < nodes.length; i++) {
-      var n = nodes[i];
-      n.x += n.vx; n.y += n.vy;
-      if (n.x < -20) n.x = W + 20; else if (n.x > W + 20) n.x = -20;
-      if (n.y < -20) n.y = H + 20; else if (n.y > H + 20) n.y = -20;
-      n.glow *= 0.965;
+    // faint hulls + labels + hub bridges
+    for (var c = 0; c < clusters.length; c++) {
+      var cl = clusters[c];
+      var hub = nodes[c * (nodes.length / clusters.length) | 0];
+      var hx = hub ? hub.x : cl.ax, hy = hub ? hub.y : cl.ay;
+      var rad = cl.r + 26;
+      var g = ctx.createRadialGradient(hx, hy, 0, hx, hy, rad);
+      g.addColorStop(0, "rgba(" + cl.color + ",0.045)");
+      g.addColorStop(1, "rgba(" + cl.color + ",0)");
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(hx, hy, rad, 0, 6.2832); ctx.fill();
+      ctx.fillStyle = "rgba(" + cl.color + ",0.3)";
+      ctx.font = "9px " + '"SF Mono", Menlo, monospace';
+      ctx.textAlign = "center";
+      ctx.fillText(cl.name, hx, clamp(hy - rad - 4, 12, H));
     }
-
-    // base edges
+    // super-faint bridges between neighbouring cluster hubs — the "big graph"
     ctx.lineWidth = 1;
-    for (i = 0; i < nodes.length; i++) {
-      for (var j = i + 1; j < nodes.length; j++) {
-        var a = nodes[i], b = nodes[j];
-        var dx = a.x - b.x, dy = a.y - b.y;
-        var d2 = dx * dx + dy * dy;
-        if (d2 < LINK_D * LINK_D) {
-          var t = 1 - Math.sqrt(d2) / LINK_D;
-          ctx.strokeStyle = "rgba(122, 148, 210," + (0.05 + t * 0.1) + ")";
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
+    var per = nodes.length / clusters.length;
+    for (c = 0; c < clusters.length; c++) {
+      for (var c2 = c + 1; c2 < clusters.length; c2++) {
+        var h1 = nodes[c * per], h2 = nodes[c2 * per];
+        var ddx = h1.x - h2.x, ddy = h1.y - h2.y;
+        var dist = Math.sqrt(ddx * ddx + ddy * ddy);
+        if (dist < Math.max(W, H) * 0.42) {
+          ctx.strokeStyle = "rgba(122,148,210," + (0.028 + 0.03 * (1 - dist / (Math.max(W, H) * 0.42))) + ")";
+          ctx.beginPath(); ctx.moveTo(h1.x, h1.y); ctx.lineTo(h2.x, h2.y); ctx.stroke();
         }
       }
     }
-
-    // pulses (synapse fires)
-    for (i = pulses.length - 1; i >= 0; i--) {
-      var p = pulses[i];
-      p.t += 16.7 / p.dur;
-      if (p.t >= 1) {
-        p.b.glow = 1;
-        pulses.splice(i, 1);
-        continue;
+    // intra-cluster constellation edges
+    for (var i = 0; i < nodes.length; i++) {
+      for (var j = i + 1; j < nodes.length; j++) {
+        var a = nodes[i], b = nodes[j];
+        if (a.cluster !== b.cluster) continue;
+        var dx = a.x - b.x, dy = a.y - b.y;
+        var d2 = dx * dx + dy * dy;
+        if (d2 < 82 * 82) {
+          var t = 1 - Math.sqrt(d2) / 82;
+          ctx.strokeStyle = "rgba(122,148,210," + (0.07 + t * 0.14) + ")";
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
       }
-      var ax = p.a.x, ay = p.a.y, bx = p.b.x, by = p.b.y;
-      var hx = ax + (bx - ax) * p.t, hy = ay + (by - ay) * p.t;
-      // glowing wake
-      var grad = ctx.createLinearGradient(ax, ay, hx, hy);
-      grad.addColorStop(0, "rgba(79,216,255,0)");
-      grad.addColorStop(1, "rgba(79,216,255,0.75)");
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = 1.6;
-      ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(hx, hy); ctx.stroke();
-      // head
-      ctx.fillStyle = "rgba(255,255,255,0.95)";
-      ctx.shadowColor = "#4fd8ff"; ctx.shadowBlur = 12;
-      ctx.beginPath(); ctx.arc(hx, hy, 2.2, 0, 6.2832); ctx.fill();
-      ctx.shadowBlur = 0;
     }
-
     // nodes
     for (i = 0; i < nodes.length; i++) {
-      n = nodes[i];
-      var base = n.team ? (n.hue ? "167,139,250" : "79,216,255") : "150,165,205";
+      var n = nodes[i];
+      var col = clusters[n.cluster].color;
       if (n.glow > 0.03) {
         var gr = n.r + 14 * n.glow;
-        var rad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, gr);
-        rad.addColorStop(0, "rgba(" + base + "," + (0.5 * n.glow) + ")");
-        rad.addColorStop(1, "rgba(" + base + ",0)");
-        ctx.fillStyle = rad;
+        var rad2 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, gr);
+        rad2.addColorStop(0, "rgba(" + col + "," + (0.5 * n.glow) + ")");
+        rad2.addColorStop(1, "rgba(" + col + ",0)");
+        ctx.fillStyle = rad2;
         ctx.beginPath(); ctx.arc(n.x, n.y, gr, 0, 6.2832); ctx.fill();
-        if (n.team && n.glow > 0.35) {
+        if (n.glow > 0.35) {
           ctx.fillStyle = "rgba(199,213,245," + (n.glow * 0.9) + ")";
           ctx.font = "10px " + '"SF Mono", Menlo, monospace';
           ctx.textAlign = "center";
           ctx.fillText(n.label, n.x, n.y - n.r - 9);
         }
       }
-      ctx.fillStyle = "rgba(" + base + "," + (n.team ? 0.85 : 0.55) + ")";
+      ctx.fillStyle = "rgba(" + col + "," + (n.hub ? 0.9 : 0.6) + ")";
       ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 6.2832); ctx.fill();
     }
+  }
 
-    // scheduler
-    if (now - lastFire > 1500 + Math.random() * 600) { lastFire = now; fire(now); }
+  function step(now) {
+    for (var i = 0; i < nodes.length; i++) { place(nodes[i], now); nodes[i].glow *= 0.965; }
+    drawBase();
 
+    // synapse pulses arcing between constellations
+    for (i = pulses.length - 1; i >= 0; i--) {
+      var p = pulses[i];
+      p.t += 16.7 / p.dur;
+      if (p.t >= 1) { p.b.glow = 1; pulses.splice(i, 1); continue; }
+      ctx.lineWidth = 1.5;
+      var t0 = Math.max(0, p.t - 0.32), started = false;
+      var tail = qcurve(p.a.x, p.a.y, p.b.x, p.b.y, t0);
+      var head = qcurve(p.a.x, p.a.y, p.b.x, p.b.y, p.t);
+      var grad = ctx.createLinearGradient(tail[0], tail[1], head[0], head[1]);
+      grad.addColorStop(0, "rgba(79,216,255,0)");
+      grad.addColorStop(1, "rgba(79,216,255,0.75)");
+      ctx.strokeStyle = grad;
+      ctx.beginPath();
+      for (var s = 0; s <= 24; s++) {
+        var tt = t0 + (p.t - t0) * (s / 24);
+        var pt = qcurve(p.a.x, p.a.y, p.b.x, p.b.y, tt);
+        if (!started) { ctx.moveTo(pt[0], pt[1]); started = true; }
+        else ctx.lineTo(pt[0], pt[1]);
+      }
+      ctx.stroke();
+      ctx.fillStyle = "rgba(255,255,255,0.95)";
+      ctx.shadowColor = "#4fd8ff"; ctx.shadowBlur = 12;
+      ctx.beginPath(); ctx.arc(head[0], head[1], 2.2, 0, 6.2832); ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+
+    if (now - lastFire > 1400 + Math.random() * 600) { lastFire = now; fire(now); }
     if (!document.hidden) requestAnimationFrame(step);
   }
 
@@ -860,26 +922,8 @@
 
   resize();
   if (REDUCED) {
-    // one static frame, no fires
-    ctx.clearRect(0, 0, W, H);
-    requestAnimationFrame(function () { stepStatic(); });
-    function stepStatic() {
-      for (var i = 0; i < nodes.length; i++) {
-        for (var j = i + 1; j < nodes.length; j++) {
-          var a = nodes[i], b = nodes[j];
-          var dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy;
-          if (d2 < LINK_D * LINK_D) {
-            ctx.strokeStyle = "rgba(122,148,210,0.1)";
-            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-          }
-        }
-      }
-      for (i = 0; i < nodes.length; i++) {
-        var n = nodes[i];
-        ctx.fillStyle = n.team ? "rgba(79,216,255,0.85)" : "rgba(150,165,205,0.55)";
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 6.2832); ctx.fill();
-      }
-    }
+    for (var i = 0; i < nodes.length; i++) place(nodes[i], 0);
+    drawBase();
   } else {
     requestAnimationFrame(step);
   }
