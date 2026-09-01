@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Agora — Constellation Clusters</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='%2394a3c8'%3E%3Ccircle cx='24' cy='10' r='3.5'/%3E%3Ccircle cx='36.1' cy='17' r='3.5'/%3E%3Ccircle cx='36.1' cy='31' r='3.5'/%3E%3Ccircle cx='24' cy='38' r='3.5'/%3E%3Ccircle cx='11.9' cy='31' r='3.5'/%3E%3Ccircle cx='11.9' cy='17' r='3.5'/%3E%3C/g%3E%3Ccircle cx='24' cy='24' r='4.3' fill='%234fd8ff'/%3E%3C/svg%3E" />
 <style>
   :root {
     --bg-0: #04060f;
@@ -86,6 +87,8 @@
     animation: dotpulse 2.6s ease-in-out infinite;
   }
   @keyframes dotpulse { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
+  .eyebrow .mark { display: block; }
+  .eyebrow .mark .core { animation: dotpulse 2.6s ease-in-out infinite; }
   h1 {
     margin-top: 26px;
     font-size: clamp(38px, 6.4vw, 72px);
@@ -435,6 +438,89 @@
   .tcard .solved div + div { margin-top: 6px; }
   .tcard .solved div::before { content: "✓ "; color: #7ee2a8; }
 
+  /* match indicators */
+  .qline {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-dim);
+  }
+  .qline .q {
+    color: var(--cyan);
+    border: 1px solid rgba(79, 216, 255, 0.3);
+    background: rgba(79, 216, 255, 0.05);
+    border-radius: 999px;
+    padding: 5px 13px;
+  }
+  #discovery .cards { margin-top: 24px; }
+  .tcard.top { border-color: rgba(79, 216, 255, 0.45); position: relative; }
+  .tcard.top .toptag {
+    position: absolute;
+    top: -10px; left: 20px;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: .16em;
+    font-weight: 700;
+    color: #061019;
+    background: linear-gradient(120deg, var(--cyan), #7cc4ff);
+    border-radius: 4px;
+    padding: 3px 8px;
+  }
+  .ring { margin-left: auto; position: relative; width: 52px; height: 52px; flex: none; }
+  .ring svg { transform: rotate(-90deg); display: block; width: 100%; height: 100%; }
+  .ring .rbg { stroke: rgba(139, 151, 184, 0.16); }
+  .ring .rfg {
+    stroke: var(--rc, #4fd8ff);
+    stroke-linecap: round;
+    stroke-dasharray: 0 100;
+    transition: stroke-dasharray 1.5s cubic-bezier(.22, .8, .24, 1) .15s;
+    filter: drop-shadow(0 0 4px var(--rc, #4fd8ff));
+  }
+  #discovery.inview .ring .rfg { stroke-dasharray: var(--pct) 100; }
+  .tcard .head .ring b {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 11.5px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+  .drivers { margin-top: 14px; display: grid; gap: 8px; }
+  .driver {
+    display: grid;
+    grid-template-columns: 74px 1fr 26px;
+    gap: 10px;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: .08em;
+    color: var(--ink-dim);
+  }
+  .driver .track { height: 4px; border-radius: 2px; background: rgba(139, 151, 184, 0.14); overflow: hidden; }
+  .driver .track i {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--rc, #4fd8ff), var(--violet));
+    transition: width 1.2s cubic-bezier(.22, .8, .24, 1) .35s;
+  }
+  #discovery.inview .driver .track i { width: var(--w); }
+  .driver .val { text-align: right; color: #b7c3e4; font-variant-numeric: tabular-nums; }
+  .whyline {
+    margin-top: 12px;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--ink-dim);
+  }
+  .whyline b { color: #b7c3e4; font-weight: 600; font-family: var(--mono); font-size: 9.5px; letter-spacing: .12em; }
+
   /* engagement briefings */
   .engage {
     margin-top: 56px;
@@ -542,7 +628,7 @@
 <div class="hero" id="hero">
   <canvas id="mesh"></canvas>
   <div class="hero-inner">
-    <div class="eyebrow"><span class="dot"></span>AGORA · INTERNAL PLATFORM</div>
+    <div class="eyebrow"><svg class="mark" width="16" height="16" viewBox="0 0 48 48" aria-hidden="true"><g fill="#8b97b8"><circle cx="24" cy="10" r="3.5"/><circle cx="36.1" cy="17" r="3.5"/><circle cx="36.1" cy="31" r="3.5"/><circle cx="24" cy="38" r="3.5"/><circle cx="11.9" cy="31" r="3.5"/><circle cx="11.9" cy="17" r="3.5"/></g><circle class="core" cx="24" cy="24" r="4.3" fill="#4fd8ff"/></svg>AGORA · INTERNAL PLATFORM</div>
     <h1>Your org already solved this.<br /><span class="grad">Find the team that did.</span></h1>
     <p class="sub">
       Agora maps every team — what they build, the stack they run, the problems they've cracked —
@@ -608,47 +694,91 @@
 </section>
 
 <!-- ═══════════════════ DISCOVERY ═══════════════════ -->
-<section>
+<section id="discovery">
   <div class="sec-eyebrow">02 · DISCOVERY &amp; MATCHMAKING</div>
-  <h2>What a match looks like</h2>
+  <h2>Every match shows its work</h2>
   <p class="sec-sub">
-    Every profile is a door: browse a team's components, borrow their patterns, or just find the
-    person who's already been through your exact problem.
+    Agora doesn't return documents — it returns teams, ranked by how much of your problem
+    they've already solved. Each score breaks down into three drivers computed from the
+    artifacts the onboarding agent indexed: <b>overlap</b> (how closely their problem was
+    yours), <b>evidence</b> (proof it worked in production), and <b>stack fit</b> (how
+    directly their solution drops into your world). It's a claim you can audit, not a vibe.
   </p>
+  <div class="qline"><span>RESULTS FOR</span><span class="q">› idempotent payment retries</span><span>ranked by fit</span></div>
   <div class="cards">
-    <div class="tcard">
+    <div class="tcard top" style="--rc:#4fd8ff">
+      <span class="toptag">TOP MATCH</span>
       <div class="head">
         <div class="avatar" style="background:linear-gradient(135deg,#4fd8ff,#3b82f6)">He</div>
         <div><b>Helios</b><small>Payments &amp; Ledger</small></div>
+        <div class="ring" style="--pct:96">
+          <svg viewBox="0 0 36 36" aria-hidden="true">
+            <circle class="rbg" cx="18" cy="18" r="15.9" fill="none" stroke-width="3" />
+            <circle class="rfg" cx="18" cy="18" r="15.9" fill="none" stroke-width="3" pathLength="100" />
+          </svg>
+          <b data-count="96">0%</b>
+        </div>
       </div>
       <p>Runs the money path — double-entry ledger, reconciliation, payouts. The org's reference for exactly-once semantics.</p>
       <div class="stack"><i>Go</i><i>Kafka</i><i>Postgres</i><i>Temporal</i><i>gRPC</i></div>
+      <div class="drivers">
+        <div class="driver"><span>OVERLAP</span><span class="track"><i style="--w:98%"></i></span><span class="val">98</span></div>
+        <div class="driver"><span>EVIDENCE</span><span class="track"><i style="--w:95%"></i></span><span class="val">95</span></div>
+        <div class="driver"><span>STACK FIT</span><span class="track"><i style="--w:92%"></i></span><span class="val">92</span></div>
+      </div>
+      <p class="whyline"><b>TOP SIGNAL</b> — idempotency keys across 9 services, zero duplicate-charge incidents in 14 months.</p>
       <div class="solved">
         <small>PROBLEMS SOLVED</small>
         <div>Idempotent retries across 9 services</div>
         <div>Zero-downtime ledger migration (2.1B rows)</div>
       </div>
     </div>
-    <div class="tcard">
+    <div class="tcard" style="--rc:#a78bfa">
       <div class="head">
         <div class="avatar" style="background:linear-gradient(135deg,#a78bfa,#7c5cf0)">At</div>
         <div><b>Atlas</b><small>Data Platform</small></div>
+        <div class="ring" style="--pct:81">
+          <svg viewBox="0 0 36 36" aria-hidden="true">
+            <circle class="rbg" cx="18" cy="18" r="15.9" fill="none" stroke-width="3" />
+            <circle class="rfg" cx="18" cy="18" r="15.9" fill="none" stroke-width="3" pathLength="100" />
+          </svg>
+          <b data-count="81">0%</b>
+        </div>
       </div>
       <p>Builds the paved road for data: streaming ingestion, lakehouse tables, and the internal metrics layer everyone queries.</p>
       <div class="stack"><i>Flink</i><i>Spark</i><i>Iceberg</i><i>Airflow</i><i>dbt</i></div>
+      <div class="drivers">
+        <div class="driver"><span>OVERLAP</span><span class="track"><i style="--w:76%"></i></span><span class="val">76</span></div>
+        <div class="driver"><span>EVIDENCE</span><span class="track"><i style="--w:89%"></i></span><span class="val">89</span></div>
+        <div class="driver"><span>STACK FIT</span><span class="track"><i style="--w:70%"></i></span><span class="val">70</span></div>
+      </div>
+      <p class="whyline"><b>TOP SIGNAL</b> — exactly-once delivery through Flink checkpointing; same problem, streaming shape.</p>
       <div class="solved">
         <small>PROBLEMS SOLVED</small>
         <div>Schema evolution without breaking 200+ consumers</div>
         <div>Backfill framework — 4 yrs of events in 6 hrs</div>
       </div>
     </div>
-    <div class="tcard">
+    <div class="tcard" style="--rc:#7ee2a8">
       <div class="head">
         <div class="avatar" style="background:linear-gradient(135deg,#7ee2a8,#2dbd6e)">Ar</div>
         <div><b>Argus</b><small>Observability</small></div>
+        <div class="ring" style="--pct:68">
+          <svg viewBox="0 0 36 36" aria-hidden="true">
+            <circle class="rbg" cx="18" cy="18" r="15.9" fill="none" stroke-width="3" />
+            <circle class="rfg" cx="18" cy="18" r="15.9" fill="none" stroke-width="3" pathLength="100" />
+          </svg>
+          <b data-count="68">0%</b>
+        </div>
       </div>
       <p>Owns tracing, metrics, and alerting. If you can see it in a dashboard, Argus built the pipe it came through.</p>
       <div class="stack"><i>OpenTelemetry</i><i>ClickHouse</i><i>Rust</i><i>Grafana</i></div>
+      <div class="drivers">
+        <div class="driver"><span>OVERLAP</span><span class="track"><i style="--w:58%"></i></span><span class="val">58</span></div>
+        <div class="driver"><span>EVIDENCE</span><span class="track"><i style="--w:84%"></i></span><span class="val">84</span></div>
+        <div class="driver"><span>STACK FIT</span><span class="track"><i style="--w:61%"></i></span><span class="val">61</span></div>
+      </div>
+      <p class="whyline"><b>TOP SIGNAL</b> — event dedup at 40M spans/min ingest; adjacent problem, different layer.</p>
       <div class="solved">
         <small>PROBLEMS SOLVED</small>
         <div>Tail-based sampling at 40M spans/min</div>
@@ -797,6 +927,38 @@
   Array.prototype.forEach.call(document.querySelectorAll(".chip"), function (c) {
     c.addEventListener("click", function () { input.value = c.textContent; input.focus(); });
   });
+
+  /* ---------- match scoring reveal ---------- */
+  var disc = document.getElementById("discovery");
+  var matchesArmed = false;
+  function armMatches() {
+    if (matchesArmed) return;
+    matchesArmed = true;
+    disc.classList.add("inview");
+    Array.prototype.forEach.call(disc.querySelectorAll(".ring b"), function (el) {
+      var target = +el.getAttribute("data-count");
+      if (REDUCED) { el.textContent = target + "%"; return; }
+      var t0 = null;
+      function tick(ts) {
+        if (!t0) t0 = ts;
+        var k = Math.min(1, (ts - t0) / 1500);
+        k = 1 - Math.pow(1 - k, 3);
+        el.textContent = Math.round(target * k) + "%";
+        if (k < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+  if (REDUCED || !("IntersectionObserver" in window)) {
+    armMatches();
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { armMatches(); io.disconnect(); }
+      });
+    }, { threshold: 0.2 });
+    io.observe(disc);
+  }
 
   /* ---------- clustered mesh ---------- */
   var canvas = document.getElementById("mesh");
