@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agora — Hero Concepts</title>
+<style>
+  :root {
+    --bg: #08090d;
+    --ink: #e9ecf4;
+    --ink-dim: #8b93a8;
+    --line: rgba(139, 147, 168, 0.16);
+    --mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+  }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em; color: var(--ink-dim); }
+  h1 { margin-top: 14px; font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.02em; text-align: center; }
+  .sub { margin-top: 12px; color: var(--ink-dim); font-size: 15px; text-align: center; max-width: 520px; line-height: 1.6; }
+  .grid {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 18px;
+    width: 100%;
+    max-width: 1060px;
+  }
+  a.card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #0d0f16;
+    transition: transform .25s, border-color .25s, box-shadow .25s;
+  }
+  a.card:hover { transform: translateY(-5px); box-shadow: 0 18px 50px rgba(0,0,0,.5); }
+  .thumb { height: 170px; position: relative; overflow: hidden; }
+  .thumb svg { width: 100%; height: 100%; display: block; }
+  .meta { padding: 18px 20px 20px; border-top: 1px solid var(--line); }
+  .meta .tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; }
+  .meta b { display: block; margin-top: 7px; font-size: 18px; letter-spacing: -0.01em; }
+  .meta p { margin-top: 7px; font-size: 13px; color: var(--ink-dim); line-height: 1.55; }
+  a.card.a:hover { border-color: rgba(79, 216, 255, .5); }
+  a.card.b:hover { border-color: rgba(245, 165, 36, .5); }
+  a.card.c:hover { border-color: rgba(232, 194, 104, .5); }
+  .a .tag { color: #4fd8ff; }
+  .b .tag { color: #f5a524; }
+  .c .tag { color: #e8c268; }
+  footer { margin-top: 46px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--ink-dim); }
+</style>
+</head>
+<body>
+  <div class="eyebrow">AGORA · INTERNAL PLATFORM · HERO CONCEPTS</div>
+  <h1>Three directions for the hero page</h1>
+  <p class="sub">Same product story — a living graph of teams, tech, and the artifacts behind them — told three different ways.</p>
+
+  <div class="grid">
+    <a class="card a" href="hero-constellation.html">
+      <div class="thumb">
+        <svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="170" fill="#04060f"/>
+          <g stroke="#2a3a63" stroke-width="0.7" fill="none">
+            <path d="M40 40L90 62L60 110M90 62L150 30M150 30L210 55L250 35M210 55L230 120L170 140M230 120L260 90M60 110L120 130L170 140M120 130L90 62"/>
+          </g>
+          <g fill="#4fd8ff"><circle cx="40" cy="40" r="3"/><circle cx="150" cy="30" r="2.5"/><circle cx="230" cy="120" r="3.4"/><circle cx="120" cy="130" r="2.6"/></g>
+          <g fill="#a78bfa"><circle cx="90" cy="62" r="2.8"/><circle cx="210" cy="55" r="3"/><circle cx="170" cy="140" r="2.4"/></g>
+          <g fill="#96a5cd" opacity=".7"><circle cx="60" cy="110" r="1.6"/><circle cx="250" cy="35" r="1.5"/><circle cx="260" cy="90" r="1.6"/></g>
+          <circle cx="210" cy="55" r="9" fill="none" stroke="#4fd8ff" stroke-opacity=".45"/>
+          <path d="M150 30L210 55" stroke="#4fd8ff" stroke-width="1.6" stroke-opacity=".8"/>
+          <text x="150" y="92" fill="#e8eefc" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">Find the team that did.</text>
+          <rect x="100" y="102" width="100" height="13" rx="6.5" fill="none" stroke="#3d517f"/>
+        </svg>
+      </div>
+      <div class="meta">
+        <span class="tag">CONCEPT A</span>
+        <b>Constellation</b>
+        <p>Full-bleed neural mesh, copy centered over it. Ethereal, cyan→violet — the graph is the hero.</p>
+      </div>
+    </a>
+
+    <a class="card b" href="hero-console.html">
+      <div class="thumb">
+        <svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="170" fill="#14110d"/>
+          <rect x="18" y="38" width="88" height="9" rx="2" fill="#f2ece1" opacity=".9"/>
+          <rect x="18" y="53" width="70" height="9" rx="2" fill="#f5a524" opacity=".85"/>
+          <rect x="18" y="72" width="95" height="4" rx="2" fill="#5d5344"/>
+          <rect x="18" y="81" width="82" height="4" rx="2" fill="#5d5344"/>
+          <rect x="18" y="98" width="100" height="14" rx="4" fill="none" stroke="#f5a524" stroke-opacity=".6"/>
+          <rect x="18" y="124" width="24" height="7" rx="2" fill="#cbbfa8" opacity=".5"/>
+          <rect x="52" y="124" width="24" height="7" rx="2" fill="#cbbfa8" opacity=".5"/>
+          <g>
+            <circle cx="185" cy="55" r="16" fill="rgba(245,165,36,.08)"/><circle cx="185" cy="55" r="3" fill="#f5a524"/>
+            <circle cx="176" cy="44" r="1.8" fill="#f5a524" opacity=".7"/><circle cx="196" cy="62" r="1.8" fill="#f5a524" opacity=".7"/>
+            <circle cx="248" cy="45" r="14" fill="rgba(45,212,191,.08)"/><circle cx="248" cy="45" r="2.8" fill="#2dd4bf"/>
+            <circle cx="256" cy="53" r="1.8" fill="#2dd4bf" opacity=".7"/>
+            <circle cx="220" cy="120" r="16" fill="rgba(180,224,126,.08)"/><circle cx="220" cy="120" r="3" fill="#b4e07e"/>
+            <circle cx="210" cy="128" r="1.8" fill="#b4e07e" opacity=".7"/>
+            <path d="M185 55Q220 70 248 45M248 45Q245 90 220 120" stroke="#f5a524" stroke-opacity=".55" fill="none"/>
+          </g>
+        </svg>
+      </div>
+      <div class="meta">
+        <span class="tag">CONCEPT B</span>
+        <b>Split console</b>
+        <p>Editorial copy + stats left, domain-clustered graph right. Warm charcoal, amber/teal — reads like a real product.</p>
+      </div>
+    </a>
+
+    <a class="card c" href="hero-radial.html">
+      <div class="thumb">
+        <svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="170" fill="#030f0a"/>
+          <g fill="none">
+            <ellipse cx="150" cy="95" rx="52" ry="32" stroke="#e8c268" stroke-opacity=".3"/>
+            <ellipse cx="150" cy="95" rx="82" ry="51" stroke="#a3e635" stroke-opacity=".22"/>
+            <ellipse cx="150" cy="95" rx="112" ry="70" stroke="#7fd8b0" stroke-opacity=".2"/>
+          </g>
+          <g fill="#e8c268"><circle cx="202" cy="95" r="2.6"/><circle cx="115" cy="70" r="2.4"/></g>
+          <g fill="#a3e635"><circle cx="232" cy="95" r="2.4"/><circle cx="90" cy="122" r="2.6"/><circle cx="150" cy="44" r="2.2"/></g>
+          <g fill="#7fd8b0"><circle cx="262" cy="95" r="2.4"/><circle cx="60" cy="75" r="2.4"/><circle cx="180" cy="160" r="2.2"/></g>
+          <path d="M115 70Q150 88 232 95" stroke="#e8c268" stroke-opacity=".6" fill="none"/>
+          <rect x="108" y="88" width="84" height="15" rx="7.5" fill="#06140d" stroke="#e8c268" stroke-opacity=".7"/>
+          <rect x="30" y="20" width="60" height="9" rx="1.5" fill="rgba(232,194,104,.12)" stroke="#e8c268" stroke-opacity=".35"/>
+          <text x="150" y="26" fill="#eaf4ec" font-size="11" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">The marketplace of knowledge</text>
+        </svg>
+      </div>
+      <div class="meta">
+        <span class="tag">CONCEPT C</span>
+        <b>Radial agora</b>
+        <p>Orbiting rings around a central search hub — the search bar is the agora. Green-black, gold/lime. Most brand-forward.</p>
+      </div>
+    </a>
+  </div>
+
+  <footer>PROTOTYPES · NO BACKEND · OPEN ANY CARD</footer>
+</body>
+</html>
